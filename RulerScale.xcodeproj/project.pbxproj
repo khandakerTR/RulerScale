@@ -16,6 +16,7 @@
 		1DB2187B29050D0000988B95 /* RulerScaleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2187A29050D0000988B95 /* RulerScaleTests.swift */; };
 		1DB2188529050D0000988B95 /* RulerScaleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2188429050D0000988B95 /* RulerScaleUITests.swift */; };
 		1DB2188729050D0000988B95 /* RulerScaleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2188629050D0000988B95 /* RulerScaleUITestsLaunchTests.swift */; };
+		1DB2189429050D6A00988B95 /* ScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2189329050D6A00988B95 /* ScaleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		1DB2188029050D0000988B95 /* RulerScaleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RulerScaleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DB2188429050D0000988B95 /* RulerScaleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerScaleUITests.swift; sourceTree = "<group>"; };
 		1DB2188629050D0000988B95 /* RulerScaleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerScaleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1DB2189329050D6A00988B95 /* ScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				1DB2186529050CFF00988B95 /* SceneDelegate.swift */,
 				1DB2186729050CFF00988B95 /* ViewController.swift */,
 				1DB2186929050CFF00988B95 /* Main.storyboard */,
+				1DB2189329050D6A00988B95 /* ScaleView.swift */,
 				1DB2186C29050D0000988B95 /* Assets.xcassets */,
 				1DB2186E29050D0000988B95 /* LaunchScreen.storyboard */,
 				1DB2187129050D0000988B95 /* Info.plist */,
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DB2186829050CFF00988B95 /* ViewController.swift in Sources */,
+				1DB2189429050D6A00988B95 /* ScaleView.swift in Sources */,
 				1DB2186429050CFF00988B95 /* AppDelegate.swift in Sources */,
 				1DB2186629050CFF00988B95 /* SceneDelegate.swift in Sources */,
 			);
