@@ -34,12 +34,12 @@ class ScaleView: UIView {
         self.addSubview(dragView)
         dragView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         dragView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        dragView.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        dragView.widthAnchor.constraint(equalToConstant: 8).isActive = true
         leftConstraint = dragView.leftAnchor.constraint(equalTo: leftAnchor, constant: -8)
     }
     
     @objc func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
-        guard let view = gestureRecognizer.view, let superView = gestureRecognizer.view?.superview else { return }
+        guard let _ = gestureRecognizer.view, let superView = gestureRecognizer.view?.superview else { return }
         switch gestureRecognizer.state {
         case .began:
                 currentLeftConstraint = leftConstraint!.constant
@@ -56,7 +56,7 @@ class ScaleView: UIView {
     }
     
     private func updateLeftConstraint(with translation: CGPoint) {
-        let maxConstraint = max(self.bounds.width - self.dragView.bounds.width + 8, 0)
+        let maxConstraint = max(self.bounds.width - self.dragView.bounds.width, 0)
         let newConstraint = min(max(0, currentLeftConstraint + translation.x), maxConstraint)
         leftConstraint?.isActive = true
         leftConstraint?.constant = newConstraint
@@ -66,7 +66,8 @@ class ScaleView: UIView {
         if stoppedMoving {
 //            print("Stoped  : ",dragView.frame)
             let width = dragView.bounds.width/2.0
-            print("SPEED",((dragView.frame.origin.x + width) / self.bounds.width) * 4.0)
+            
+            print(String(format: "a float number: %.1f",((dragView.frame.origin.x + width / 2) / (self.bounds.width - 8) * 4.0)))
             //delegate?.positionBarStoppedMoving(playerTime)
         } else {
             //delegate?.didChangePositionBar(playerTime)
@@ -82,23 +83,20 @@ class ScaleView: UIView {
     func drawRulerScale() {
         
         let totalNumberOfPoint = 40.0
-        let interItemSpcae:Double = ((self.bounds.width) / totalNumberOfPoint) * 10
+        let interItemSpcae:Double = ((self.bounds.width - 8) / totalNumberOfPoint) * 10
         let lines = UIBezierPath()
 
         for i in 0...40 {
             
             let temp:Double = Double(i) / 10.0
             let isInteger = floor(temp) == temp
-//
             let height = (isInteger) ? 15.0 : 5.0
             let space =  (self.bounds.height - height)/2.0
-            let oneLine = UIBezierPath()
+            let oneLine = UIBezierPath(roundedRect: .null, cornerRadius: 6)
             
-            oneLine.move(to: CGPoint(x: temp*interItemSpcae, y: space))
-            oneLine.addLine(to: CGPoint(x: temp*interItemSpcae, y: height + space))
+            oneLine.move(to: CGPoint(x: temp*interItemSpcae + 4, y: space))
+            oneLine.addLine(to: CGPoint(x: temp*interItemSpcae + 4, y: height + space))
             lines.append(oneLine)
-//
-             //INDICATOR TEXT
             if(isInteger)
             {
                 let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 21))
@@ -110,7 +108,6 @@ class ScaleView: UIView {
             }
         }
 
-        // DESIGN LINES IN LAYER#imageLiteral(resourceName: "simulator_screenshot_9318CD10-508C-4EEC-B8FA-0C49886F3119.png")
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = lines.cgPath
         shapeLayer.strokeColor = UIColor.black.cgColor
