@@ -9,7 +9,7 @@ import UIKit
 
 class ScaleView: UIView {
     
-    let dragView = UIView()
+    let handleView = HandleView()
     let totalNumberOfPoint = 40.0
     let scalePadding = 4.0
     let floatingScalePointHeight = 5.0
@@ -33,19 +33,19 @@ class ScaleView: UIView {
     }
     
     func setupDragView () {
-        dragView.backgroundColor = .black
-        dragView.layer.cornerRadius = 4
-        dragView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(dragView)
-        dragView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        dragView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        dragView.widthAnchor.constraint(equalToConstant: 8).isActive = true
-        leftConstraint = dragView.leftAnchor.constraint(equalTo: leftAnchor, constant: -8)
+        handleView.backgroundColor = .black
+        handleView.layer.cornerRadius = 4
+        handleView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(handleView)
+        handleView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        handleView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        handleView.widthAnchor.constraint(equalToConstant: 8).isActive = true
+        leftConstraint = handleView.leftAnchor.constraint(equalTo: leftAnchor, constant: -8)
     }
     
     func setupGestures() {
         let leftPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture))
-        dragView.addGestureRecognizer(leftPanGestureRecognizer)
+        handleView.addGestureRecognizer(leftPanGestureRecognizer)
     }
     
     @objc func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
@@ -66,7 +66,7 @@ class ScaleView: UIView {
     }
     
     private func updateLeftConstraint(with translation: CGPoint) {
-        let maxConstraint = max(self.bounds.width - self.dragView.bounds.width, 0)
+        let maxConstraint = max(self.bounds.width - self.handleView.bounds.width, 0)
         let newConstraint = min(max(0, currentLeftConstraint + translation.x), maxConstraint)
         leftConstraint?.isActive = true
         leftConstraint?.constant = newConstraint
@@ -74,7 +74,7 @@ class ScaleView: UIView {
     
     private func updateSelectedTime() {
         
-        let dragViewPosition = dragView.frame.origin.x
+        let dragViewPosition = handleView.frame.origin.x
         let scaleWidth = self.bounds.width - scalePadding * 2
         let scaleFactor = totalNumberOfPoint / 10.0
         let currentPoint = (dragViewPosition / scaleWidth) * scaleFactor
@@ -112,7 +112,7 @@ class ScaleView: UIView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = lines.cgPath
         shapeLayer.strokeColor = UIColor.black.cgColor
-        shapeLayer.lineWidth = 1
+        shapeLayer.lineWidth = 1.5
         self.layer.addSublayer(shapeLayer)
     }
 }
