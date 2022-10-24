@@ -19,14 +19,14 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ma-9Y-igh" customClass="ScaleView" customModule="RulerScale" customModuleProvider="target">
                                 <rect key="frame" x="50" y="376" width="293" height="100"/>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Bld-YZ-aYt"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
                             <constraint firstItem="2ma-9Y-igh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BaM-Vc-wtp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2ma-9Y-igh" secondAttribute="trailing" constant="50" id="FzY-uK-M10"/>
@@ -34,6 +34,9 @@
                             <constraint firstItem="2ma-9Y-igh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="uBx-Na-DCr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="scaleRulerView" destination="2ma-9Y-igh" id="kcj-Dn-JKj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -41,11 +44,8 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

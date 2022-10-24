@@ -78,14 +78,14 @@ class ScaleView: UIView {
         switch gestureRecognizer.state {
         case .began:
             currentLeftConstraint = leftConstraint!.constant
-                updateSelectedTime()
+                updateScrolledPosition()
         case .changed:
             let translation = gestureRecognizer.translation(in: superView)
                 updateLeftConstraint(with: translation)
             layoutIfNeeded()
-            updateSelectedTime()
+            updateScrolledPosition()
         case .cancelled, .ended, .failed:
-            updateSelectedTime()
+            updateScrolledPosition()
         default: break
         }
     }
@@ -97,7 +97,7 @@ class ScaleView: UIView {
         leftConstraint?.constant = newConstraint
     }
     
-    private func updateSelectedTime() {
+    private func updateScrolledPosition() {
         
         let handleBarPosition = handleView.frame.origin.x
         let scaleWidth = self.bounds.width - scalePadding * 2
@@ -112,7 +112,7 @@ class ScaleView: UIView {
     func drawRulerScale() {
         
         let lines = UIBezierPath()
-        let spaceBetweenTwoPoints:Double = ((self.bounds.width - scalePadding * 2) / totalNumberOfPoint) * 10
+        let spaceBetweenTwoPoints:Double = ((self.bounds.width - scalePadding * 2) / totalNumberOfPoint)
         
         for i in 0...Int(totalNumberOfPoint) {
             
@@ -122,21 +122,20 @@ class ScaleView: UIView {
             let topSpace =  (self.bounds.height - height)/2.0
             
             let oneLine = UIBezierPath()
-            oneLine.move(to: CGPoint(x: currentValue*spaceBetweenTwoPoints + scalePadding, y: topSpace))
-            oneLine.addLine(to: CGPoint(x: currentValue*spaceBetweenTwoPoints + scalePadding, y: height + topSpace))
+            oneLine.move(to: CGPoint(x: Double(i)*spaceBetweenTwoPoints + scalePadding, y: topSpace))
+            oneLine.addLine(to: CGPoint(x: Double(i)*spaceBetweenTwoPoints + scalePadding, y: height + topSpace))
             lines.append(oneLine)
             
             if(isInteger)
             {
                 let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 21))
-                label.center = CGPoint(x: currentValue*spaceBetweenTwoPoints + scalePadding, y: topSpace + height + 15)
+                label.center = CGPoint(x: Double(i)*spaceBetweenTwoPoints + scalePadding, y: topSpace + height + 15)
                 label.font = UIFont.systemFont(ofSize: 9)
                 label.textAlignment = .center
                 label.text = "\(Int(currentValue))x"
                 self.addSubview(label)
             }
         }
-        
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = lines.cgPath
         shapeLayer.strokeColor = UIColor.black.cgColor
