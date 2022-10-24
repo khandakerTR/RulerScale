@@ -9,6 +9,8 @@ import UIKit
 
 class ScaleView: UIView {
     
+    private let currentTimeLabel = UILabel()
+    private let timeImageView = UIImageView()
     let handleView = HandleView()
     let totalNumberOfPoint = 40.0
     let scalePadding = 4.0
@@ -24,12 +26,12 @@ class ScaleView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupDragView ()
+        setupSpeedPointView()
+        setupGestures()
     }
     
     override func draw(_ rect: CGRect) {
         drawRulerScale()
-        setupDragView ()
-        setupGestures()
     }
     
     func setupDragView () {
@@ -43,9 +45,29 @@ class ScaleView: UIView {
         leftConstraint = handleView.leftAnchor.constraint(equalTo: leftAnchor, constant: -8)
     }
     
+    
     func setupGestures() {
         let leftPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture))
         handleView.addGestureRecognizer(leftPanGestureRecognizer)
+    }
+    
+    func setupSpeedPointView() {
+        timeImageView.translatesAutoresizingMaskIntoConstraints = false
+        timeImageView.image = UIImage(named: "timeFrame")
+        timeImageView.contentMode = .scaleToFill
+        addSubview(timeImageView)
+        
+        currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        currentTimeLabel.text = "0x"
+        currentTimeLabel.font = UIFont.systemFont(ofSize: 9, weight: .medium)
+        currentTimeLabel.textColor = .black
+        timeImageView.addSubview(currentTimeLabel)
+        
+        timeImageView.topAnchor.constraint(equalTo: handleView.topAnchor, constant: -25).isActive = true
+        timeImageView.widthAnchor.constraint(equalToConstant: 22).isActive = true
+        timeImageView.heightAnchor.constraint(equalToConstant: 22) .isActive = true
+        timeImageView.centerXAnchor.constraint(equalTo: handleView.centerXAnchor).isActive = true
+        currentTimeLabel.centerXAnchor.constraint(equalTo: timeImageView.centerXAnchor).isActive = true
     }
     
     @objc func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
@@ -78,7 +100,10 @@ class ScaleView: UIView {
         let scaleWidth = self.bounds.width - scalePadding * 2
         let scaleFactor = totalNumberOfPoint / 10.0
         let currentPoint = (dragViewPosition / scaleWidth) * scaleFactor
-        print(String(format: "a float number: %.1f",currentPoint))
+        let stringNumber = String(format: "%.1f",currentPoint)
+        let speed = (stringNumber as NSString).floatValue
+        currentTimeLabel.text = "\(speed)x"
+        print("Speed : ",speed)
     }
     
     func drawRulerScale() {
