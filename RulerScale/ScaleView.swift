@@ -9,13 +9,17 @@ import UIKit
 
 class ScaleView: UIView {
     
+    private let handleView = HandleView()
     private let currentTimeLabel = UILabel()
     private let timeImageView = UIImageView()
-    let handleView = HandleView()
-    let totalNumberOfPoint = 40.0
-    let scalePadding = 4.0
-    let floatingScalePointHeight = 5.0
-    let integerScalePointHeight = 15.0
+   
+    public let handleBarWidth = 8.0
+    public let handleBarHeight = 30.0
+    public let totalNumberOfPoint = 40.0
+    public let floatingScalePointHeight = 4.0
+    public let integerScalePointHeight = 15.0
+    
+    private var scalePadding = 4.0
     private var leftConstraint: NSLayoutConstraint?
     private var currentLeftConstraint: CGFloat = 0
     
@@ -40,11 +44,10 @@ class ScaleView: UIView {
         handleView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(handleView)
         handleView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        handleView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        handleView.widthAnchor.constraint(equalToConstant: 8).isActive = true
-        leftConstraint = handleView.leftAnchor.constraint(equalTo: leftAnchor, constant: -8)
+        handleView.heightAnchor.constraint(equalToConstant: handleBarHeight).isActive = true
+        handleView.widthAnchor.constraint(equalToConstant: handleBarWidth).isActive = true
+        leftConstraint = handleView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0)
     }
-    
     
     func setupGestures() {
         let leftPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture))
@@ -74,7 +77,7 @@ class ScaleView: UIView {
         guard let _ = gestureRecognizer.view, let superView = gestureRecognizer.view?.superview else { return }
         switch gestureRecognizer.state {
         case .began:
-                currentLeftConstraint = leftConstraint!.constant
+            currentLeftConstraint = leftConstraint!.constant
                 updateSelectedTime()
         case .changed:
             let translation = gestureRecognizer.translation(in: superView)
@@ -96,10 +99,10 @@ class ScaleView: UIView {
     
     private func updateSelectedTime() {
         
-        let dragViewPosition = handleView.frame.origin.x
+        let handleBarPosition = handleView.frame.origin.x
         let scaleWidth = self.bounds.width - scalePadding * 2
         let scaleFactor = totalNumberOfPoint / 10.0
-        let currentPoint = (dragViewPosition / scaleWidth) * scaleFactor
+        let currentPoint = (handleBarPosition / scaleWidth) * scaleFactor
         let stringNumber = String(format: "%.1f",currentPoint)
         let speed = (stringNumber as NSString).floatValue
         currentTimeLabel.text = "\(speed)x"
@@ -126,14 +129,14 @@ class ScaleView: UIView {
             if(isInteger)
             {
                 let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 21))
-                label.center = CGPoint(x: currentValue*spaceBetweenTwoPoints + scalePadding, y: topSpace + height+15)
+                label.center = CGPoint(x: currentValue*spaceBetweenTwoPoints + scalePadding, y: topSpace + height + 15)
                 label.font = UIFont.systemFont(ofSize: 9)
                 label.textAlignment = .center
                 label.text = "\(Int(currentValue))x"
                 self.addSubview(label)
             }
         }
-
+        
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = lines.cgPath
         shapeLayer.strokeColor = UIColor.black.cgColor
