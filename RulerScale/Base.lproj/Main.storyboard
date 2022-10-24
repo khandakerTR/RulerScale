@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -17,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ma-9Y-igh" customClass="ScaleView" customModule="RulerScale" customModuleProvider="target">
-                                <rect key="frame" x="8" y="401" width="377" height="50"/>
+                                <rect key="frame" x="50" y="401" width="293" height="50"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Bld-YZ-aYt"/>
@@ -28,8 +29,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2ma-9Y-igh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BaM-Vc-wtp"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2ma-9Y-igh" secondAttribute="trailing" constant="8" id="FzY-uK-M10"/>
-                            <constraint firstItem="2ma-9Y-igh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="dVG-mC-GMC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2ma-9Y-igh" secondAttribute="trailing" constant="50" id="FzY-uK-M10"/>
+                            <constraint firstItem="2ma-9Y-igh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="dVG-mC-GMC"/>
                             <constraint firstItem="2ma-9Y-igh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="uBx-Na-DCr"/>
                         </constraints>
                     </view>

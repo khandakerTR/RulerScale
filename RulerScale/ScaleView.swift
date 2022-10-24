@@ -9,17 +9,74 @@ import UIKit
 
 class ScaleView: UIView {
     
+    let dragView = UIView()
+    private var leftConstraint: NSLayoutConstraint?
+    private var currentLeftConstraint: CGFloat = 0
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setupDragView ()
     }
     
     override func draw(_ rect: CGRect) {
         drawRulerScale()
+        setupDragView ()
+        setupGestures()
+    }
+    
+    func setupDragView () {
+        dragView.backgroundColor = .black
+        dragView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(dragView)
+        dragView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        dragView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        dragView.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        leftConstraint = dragView.leftAnchor.constraint(equalTo: leftAnchor, constant: -8)
+    }
+    
+    @objc func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
+        guard let view = gestureRecognizer.view, let superView = gestureRecognizer.view?.superview else { return }
+        switch gestureRecognizer.state {
+        case .began:
+                currentLeftConstraint = leftConstraint!.constant
+                updateSelectedTime(stoppedMoving: false)
+        case .changed:
+            let translation = gestureRecognizer.translation(in: superView)
+                updateLeftConstraint(with: translation)
+            layoutIfNeeded()
+            updateSelectedTime(stoppedMoving: false)
+        case .cancelled, .ended, .failed:
+            updateSelectedTime(stoppedMoving: true)
+        default: break
+        }
+    }
+    
+    private func updateLeftConstraint(with translation: CGPoint) {
+        let maxConstraint = max(self.bounds.width - self.dragView.bounds.width + 8, 0)
+        let newConstraint = min(max(0, currentLeftConstraint + translation.x), maxConstraint)
+        leftConstraint?.isActive = true
+        leftConstraint?.constant = newConstraint
+    }
+    
+    private func updateSelectedTime(stoppedMoving: Bool) {
+        if stoppedMoving {
+//            print("Stoped  : ",dragView.frame)
+            let width = dragView.bounds.width/2.0
+            print("SPEED",((dragView.frame.origin.x + width) / self.bounds.width) * 4.0)
+            //delegate?.positionBarStoppedMoving(playerTime)
+        } else {
+            //delegate?.didChangePositionBar(playerTime)
+//            print("Moving  : ",dragView.frame)
+        }
+    }
+    
+    func setupGestures() {
+        let leftPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture))
+        dragView.addGestureRecognizer(leftPanGestureRecognizer)
     }
     
     func drawRulerScale() {
@@ -36,35 +93,28 @@ class ScaleView: UIView {
             let height = (isInteger) ? 15.0 : 5.0
             let space =  (self.bounds.height - height)/2.0
             let oneLine = UIBezierPath()
-
-     
+            
             oneLine.move(to: CGPoint(x: temp*interItemSpcae, y: space))
             oneLine.addLine(to: CGPoint(x: temp*interItemSpcae, y: height + space))
-            
-            //oneLine.move(to: CGPoint(x: temp*interItemSpcae, y: (self.bounds.height - spcae) / 2.0))
-            //oneLine.addLine(to: CGPoint(x: temp*interItemSpcae, y: height))
-            print("oneline Move: ",CGPoint(x: temp*interItemSpcae, y:  space))
-            print("oneline Add : ",CGPoint(x: temp*interItemSpcae, y: space + height))
-            
             lines.append(oneLine)
 //
              //INDICATOR TEXT
-//            if(isInteger)
-//            {
-//                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 21))
-//                label.center = CGPoint(x: temp*interItemSpcae, y: height+15)
-//                label.font = UIFont.systemFont(ofSize: 9)
-//                label.textAlignment = .center
-//                label.text = "\(Int(temp))x"
-//                self.addSubview(label)
-//            }
+            if(isInteger)
+            {
+                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 21))
+                label.center = CGPoint(x: temp*interItemSpcae, y: space + height+15)
+                label.font = UIFont.systemFont(ofSize: 9)
+                label.textAlignment = .center
+                label.text = "\(Int(temp))x"
+                self.addSubview(label)
+            }
         }
 
         // DESIGN LINES IN LAYER#imageLiteral(resourceName: "simulator_screenshot_9318CD10-508C-4EEC-B8FA-0C49886F3119.png")
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = lines.cgPath
         shapeLayer.strokeColor = UIColor.black.cgColor
-        shapeLayer.lineWidth = 2
+        shapeLayer.lineWidth = 1
 
         // ADD LINES IN LAYER
         self.layer.addSublayer(shapeLayer)
