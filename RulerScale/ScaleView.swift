@@ -10,6 +10,10 @@ import UIKit
 class ScaleView: UIView {
     
     let dragView = UIView()
+    let totalNumberOfPoint = 40.0
+    let scalePadding = 4.0
+    let floatingScalePointHeight = 5.0
+    let integerScalePointHeight = 15.0
     private var leftConstraint: NSLayoutConstraint?
     private var currentLeftConstraint: CGFloat = 0
     
@@ -30,6 +34,7 @@ class ScaleView: UIView {
     
     func setupDragView () {
         dragView.backgroundColor = .black
+        dragView.layer.cornerRadius = 4
         dragView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(dragView)
         dragView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -38,19 +43,24 @@ class ScaleView: UIView {
         leftConstraint = dragView.leftAnchor.constraint(equalTo: leftAnchor, constant: -8)
     }
     
+    func setupGestures() {
+        let leftPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture))
+        dragView.addGestureRecognizer(leftPanGestureRecognizer)
+    }
+    
     @objc func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
         guard let _ = gestureRecognizer.view, let superView = gestureRecognizer.view?.superview else { return }
         switch gestureRecognizer.state {
         case .began:
                 currentLeftConstraint = leftConstraint!.constant
-                updateSelectedTime(stoppedMoving: false)
+                updateSelectedTime()
         case .changed:
             let translation = gestureRecognizer.translation(in: superView)
                 updateLeftConstraint(with: translation)
             layoutIfNeeded()
-            updateSelectedTime(stoppedMoving: false)
+            updateSelectedTime()
         case .cancelled, .ended, .failed:
-            updateSelectedTime(stoppedMoving: true)
+            updateSelectedTime()
         default: break
         }
     }
@@ -62,48 +72,39 @@ class ScaleView: UIView {
         leftConstraint?.constant = newConstraint
     }
     
-    private func updateSelectedTime(stoppedMoving: Bool) {
-        if stoppedMoving {
-//            print("Stoped  : ",dragView.frame)
-            let width = dragView.bounds.width/2.0
-            
-            print(String(format: "a float number: %.1f",((dragView.frame.origin.x + width / 2) / (self.bounds.width - 8) * 4.0)))
-            //delegate?.positionBarStoppedMoving(playerTime)
-        } else {
-            //delegate?.didChangePositionBar(playerTime)
-//            print("Moving  : ",dragView.frame)
-        }
-    }
-    
-    func setupGestures() {
-        let leftPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture))
-        dragView.addGestureRecognizer(leftPanGestureRecognizer)
+    private func updateSelectedTime() {
+        
+        let dragViewPosition = dragView.frame.origin.x
+        let scaleWidth = self.bounds.width - scalePadding * 2
+        let scaleFactor = totalNumberOfPoint / 10.0
+        let currentPoint = (dragViewPosition / scaleWidth) * scaleFactor
+        print(String(format: "a float number: %.1f",currentPoint))
     }
     
     func drawRulerScale() {
         
-        let totalNumberOfPoint = 40.0
-        let interItemSpcae:Double = ((self.bounds.width - 8) / totalNumberOfPoint) * 10
         let lines = UIBezierPath()
-
-        for i in 0...40 {
+        let spaceBetweenTwoPoints:Double = ((self.bounds.width - scalePadding * 2) / totalNumberOfPoint) * 10
+        
+        for i in 0...Int(totalNumberOfPoint) {
             
-            let temp:Double = Double(i) / 10.0
-            let isInteger = floor(temp) == temp
-            let height = (isInteger) ? 15.0 : 5.0
-            let space =  (self.bounds.height - height)/2.0
-            let oneLine = UIBezierPath(roundedRect: .null, cornerRadius: 6)
+            let currentValue:Double = Double(i) / 10.0
+            let isInteger = floor(currentValue) == currentValue
+            let height = (isInteger) ? integerScalePointHeight : floatingScalePointHeight
+            let topSpace =  (self.bounds.height - height)/2.0
             
-            oneLine.move(to: CGPoint(x: temp*interItemSpcae + 4, y: space))
-            oneLine.addLine(to: CGPoint(x: temp*interItemSpcae + 4, y: height + space))
+            let oneLine = UIBezierPath()
+            oneLine.move(to: CGPoint(x: currentValue*spaceBetweenTwoPoints + scalePadding, y: topSpace))
+            oneLine.addLine(to: CGPoint(x: currentValue*spaceBetweenTwoPoints + scalePadding, y: height + topSpace))
             lines.append(oneLine)
+            
             if(isInteger)
             {
                 let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 21))
-                label.center = CGPoint(x: temp*interItemSpcae, y: space + height+15)
+                label.center = CGPoint(x: currentValue*spaceBetweenTwoPoints + scalePadding, y: topSpace + height+15)
                 label.font = UIFont.systemFont(ofSize: 9)
                 label.textAlignment = .center
-                label.text = "\(Int(temp))x"
+                label.text = "\(Int(currentValue))x"
                 self.addSubview(label)
             }
         }
@@ -112,9 +113,6 @@ class ScaleView: UIView {
         shapeLayer.path = lines.cgPath
         shapeLayer.strokeColor = UIColor.black.cgColor
         shapeLayer.lineWidth = 1
-
-        // ADD LINES IN LAYER
         self.layer.addSublayer(shapeLayer)
     }
-
 }
