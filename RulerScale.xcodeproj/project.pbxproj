@@ -18,6 +18,7 @@
 		1DB2188529050D0000988B95 /* RulerScaleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2188429050D0000988B95 /* RulerScaleUITests.swift */; };
 		1DB2188729050D0000988B95 /* RulerScaleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2188629050D0000988B95 /* RulerScaleUITestsLaunchTests.swift */; };
 		1DB2189429050D6A00988B95 /* ScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2189329050D6A00988B95 /* ScaleView.swift */; };
+		1DF4B66E290AB62D00C159C7 /* ScaleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF4B66D290AB62D00C159C7 /* ScaleView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		1DB2188429050D0000988B95 /* RulerScaleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerScaleUITests.swift; sourceTree = "<group>"; };
 		1DB2188629050D0000988B95 /* RulerScaleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerScaleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1DB2189329050D6A00988B95 /* ScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleView.swift; sourceTree = "<group>"; };
+		1DF4B66D290AB62D00C159C7 /* ScaleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScaleView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				1DB2186729050CFF00988B95 /* ViewController.swift */,
 				1DB2186929050CFF00988B95 /* Main.storyboard */,
 				1DB2189329050D6A00988B95 /* ScaleView.swift */,
+				1DF4B66D290AB62D00C159C7 /* ScaleView.xib */,
 				1D16B0C4290695D30034275E /* HandleView.swift */,
 				1DB2186C29050D0000988B95 /* Assets.xcassets */,
 				1DB2186E29050D0000988B95 /* LaunchScreen.storyboard */,
@@ -238,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DB2187029050D0000988B95 /* LaunchScreen.storyboard in Resources */,
+				1DF4B66E290AB62D00C159C7 /* ScaleView.xib in Resources */,
 				1DB2186D29050D0000988B95 /* Assets.xcassets in Resources */,
 				1DB2186B29050CFF00988B95 /* Main.storyboard in Resources */,
 			);

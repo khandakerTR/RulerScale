@@ -8,18 +8,18 @@
 import UIKit
 
 class ScaleView: UIView {
-    
+
     private let handleView = HandleView()
     private let currentTimeLabel = UILabel()
     private let timeImageView = UIImageView()
    
     public let handleBarWidth = 8.0
     public let handleBarHeight = 30.0
-    public let totalNumberOfPoint = 40.0
-    public let floatingScalePointHeight = 4.0
+    public var totalNumberOfPoint = 40.0
+    public let floatingScalePointHeight = 5.0
     public let integerScalePointHeight = 15.0
     
-    private var scalePadding = 4.0
+    private var scalePadding = 16.0
     private var leftConstraint: NSLayoutConstraint?
     private var currentLeftConstraint: CGFloat = 0
     
@@ -46,7 +46,8 @@ class ScaleView: UIView {
         handleView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         handleView.heightAnchor.constraint(equalToConstant: handleBarHeight).isActive = true
         handleView.widthAnchor.constraint(equalToConstant: handleBarWidth).isActive = true
-        leftConstraint = handleView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0)
+        leftConstraint = handleView.leftAnchor.constraint(equalTo: leftAnchor, constant: scalePadding - handleBarWidth/2)
+        leftConstraint?.isActive = true
     }
     
     func setupGestures() {
@@ -91,16 +92,16 @@ class ScaleView: UIView {
     }
     
     private func updateLeftConstraint(with translation: CGPoint) {
-        let maxConstraint = max(self.bounds.width - self.handleView.bounds.width, 0)
-        let newConstraint = min(max(0, currentLeftConstraint + translation.x), maxConstraint)
+        let maxConstraint = max(self.bounds.width - scalePadding - handleBarWidth/2, 0)
+        let newConstraint = min(max(scalePadding - handleBarWidth/2, currentLeftConstraint + translation.x), maxConstraint)
         leftConstraint?.isActive = true
         leftConstraint?.constant = newConstraint
     }
     
     private func updateScrolledPosition() {
         
-        let handleBarPosition = handleView.frame.origin.x
-        let scaleWidth = self.bounds.width - scalePadding * 2
+        let handleBarPosition = handleView.frame.origin.x - (scalePadding - handleBarWidth/2)
+        let scaleWidth = self.bounds.width - scalePadding * 2.0
         let scaleFactor = totalNumberOfPoint / 10.0
         let currentPoint = (handleBarPosition / scaleWidth) * scaleFactor
         let stringNumber = String(format: "%.1f",currentPoint)

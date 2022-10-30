@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ma-9Y-igh" customClass="ScaleView" customModule="RulerScale" customModuleProvider="target">
-                                <rect key="frame" x="50" y="376" width="293" height="100"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ma-9Y-igh">
+                                <rect key="frame" x="0.0" y="376" width="393" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Bld-YZ-aYt"/>
@@ -29,13 +29,13 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
                             <constraint firstItem="2ma-9Y-igh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BaM-Vc-wtp"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2ma-9Y-igh" secondAttribute="trailing" constant="50" id="FzY-uK-M10"/>
-                            <constraint firstItem="2ma-9Y-igh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="dVG-mC-GMC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2ma-9Y-igh" secondAttribute="trailing" id="FzY-uK-M10"/>
+                            <constraint firstItem="2ma-9Y-igh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dVG-mC-GMC"/>
                             <constraint firstItem="2ma-9Y-igh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="uBx-Na-DCr"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="scaleRulerView" destination="2ma-9Y-igh" id="kcj-Dn-JKj"/>
+                        <outlet property="scaleRulerView" destination="2ma-9Y-igh" id="4D2-1I-5Lh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
