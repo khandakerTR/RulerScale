@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D16B0C5290695D30034275E /* HandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D16B0C4290695D30034275E /* HandleView.swift */; };
+		1DAD607029114D0600526E8F /* Vibrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD606F29114D0600526E8F /* Vibrate.swift */; };
 		1DB2186429050CFF00988B95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2186329050CFF00988B95 /* AppDelegate.swift */; };
 		1DB2186629050CFF00988B95 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2186529050CFF00988B95 /* SceneDelegate.swift */; };
 		1DB2186829050CFF00988B95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB2186729050CFF00988B95 /* ViewController.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		1D16B0C4290695D30034275E /* HandleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleView.swift; sourceTree = "<group>"; };
+		1DAD606F29114D0600526E8F /* Vibrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibrate.swift; sourceTree = "<group>"; };
 		1DB2186029050CFF00988B95 /* RulerScale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RulerScale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DB2186329050CFF00988B95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DB2186529050CFF00988B95 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				1DB2186329050CFF00988B95 /* AppDelegate.swift */,
 				1DB2186529050CFF00988B95 /* SceneDelegate.swift */,
 				1DB2186729050CFF00988B95 /* ViewController.swift */,
+				1DAD606F29114D0600526E8F /* Vibrate.swift */,
 				1DB2186929050CFF00988B95 /* Main.storyboard */,
 				1DB2189329050D6A00988B95 /* ScaleView.swift */,
 				1DF4B66D290AB62D00C159C7 /* ScaleView.xib */,
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DB2186829050CFF00988B95 /* ViewController.swift in Sources */,
+				1DAD607029114D0600526E8F /* Vibrate.swift in Sources */,
 				1D16B0C5290695D30034275E /* HandleView.swift in Sources */,
 				1DB2189429050D6A00988B95 /* ScaleView.swift in Sources */,
 				1DB2186429050CFF00988B95 /* AppDelegate.swift in Sources */,

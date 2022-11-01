@@ -23,6 +23,8 @@ class ScaleView: UIView {
     private var leftConstraint: NSLayoutConstraint?
     private var currentLeftConstraint: CGFloat = 0
     
+    private var points = [Int]()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -94,6 +96,10 @@ class ScaleView: UIView {
     private func updateLeftConstraint(with translation: CGPoint) {
         let maxConstraint = max(self.bounds.width - scalePadding - handleBarWidth/2, 0)
         let newConstraint = min(max(scalePadding - handleBarWidth/2, currentLeftConstraint + translation.x), maxConstraint)
+        let center: Int = Int(newConstraint) + 4
+        if points.contains(center) {
+            Vibration.medium.vibrate()
+        }
         leftConstraint?.isActive = true
         leftConstraint?.constant = newConstraint
     }
@@ -125,6 +131,7 @@ class ScaleView: UIView {
             let oneLine = UIBezierPath()
             oneLine.move(to: CGPoint(x: Double(i)*spaceBetweenTwoPoints + scalePadding, y: topSpace))
             oneLine.addLine(to: CGPoint(x: Double(i)*spaceBetweenTwoPoints + scalePadding, y: height + topSpace))
+            points.append( Int(Double(i) * spaceBetweenTwoPoints + scalePadding))
             lines.append(oneLine)
             
             if(isInteger)
